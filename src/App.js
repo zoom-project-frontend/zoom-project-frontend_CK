@@ -129,6 +129,7 @@ function App() {
                       {...column.getHeaderProps(column.getSortByToggleProps())}
                     >
                       {column.render("Header")}
+                      <div className="material-icons swap_vert">swap_vert</div>
                     </th>
                   ))}
                 </tr>
