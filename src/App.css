@@ -44,8 +44,8 @@
 
 .sunMoon {
   position: absolute;
-  top: 20px;
-  right: 30px;
+  top: 12px;
+  right: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -141,25 +141,33 @@
   justify-content: center;
   align-items: center;
   width: 50vw;
-  height: 40px;
+  height: 9vw;
+  max-height: 35px;
+  border: 1px solid gray;
   border-radius: 10px;
   margin-bottom: 10px;
-  background-color: #b6b6b6;
+  background-color: rgba(0, 0, 0, 0.15);
 }
 
 .search_form {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   width: 98%;
-  height: 70%;
+  height: 72%;
 }
 
 .search_input {
-  width: 39vw;
+  width: 33vw;
   height: 100%;
-  border: 1px solid gray;
+  border: none;
   border-radius: 8px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.search_input:focus {
+  width: 36vw;
 }
 
 .search_btn {
@@ -169,7 +177,7 @@
   width: 9vw;
   height: 100%;
   border: 1px solid gray;
-  border-radius: 8px;
+  border-radius: 6px;
   background-color: #0f72ed;
   color: white;
   font-size: clamp(10px, 2vw, 15px);
@@ -185,16 +193,18 @@
 }
 
 .table_container {
-  max-height: 63vh;
-  border: 1px solid white;
-  border-radius: 12px;
-  margin: 0 10px;
-  overflow: scroll !important;
-  visibility: hidden;
+  position: relative;
+  max-height: 53vh;
+  border: 1px solid gray;
+  border-radius: 5px;
+  margin: 5px 10px;
+  overflow: auto;
+  box-shadow: inset 0px -2px 3px 0px gray;
+  display: none;
 }
 
 .tableVisible {
-  visibility: visible !important;
+  display: block !important;
   animation: tableVisible 3s;
 }
 
@@ -208,8 +218,6 @@
 }
 
 table {
-  width: fit-content;
-  height: fit-content;
   padding: 3px;
   text-align: center;
   background-color: rgba(0, 0, 0, 0.15);
@@ -217,30 +225,31 @@ table {
 }
 
 thead {
-  padding: 3px;
-  border: 1px solid white;
-  border-radius: 8px;
-  margin-bottom: 4px;
-  background-color: rgba(0, 0, 0, 0.15);
+  position: sticky;
+  top: 3px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  margin: 0 10px;
+  background-color: rgb(175, 175, 175);
+  z-index: 1;
 }
 
 th {
   user-select: none;
   position: relative;
   width: 70px;
-  height: 20px;
+  height: 15px;
   border: 1px solid gray;
-  border-radius: 7px;
+  border-radius: 3px;
   margin: 1px;
   font-size: clamp(12px, 2vw, 20px);
-  overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   background-color: rgba(0, 0, 0, 0.2);
-  transition: 0.2s;
 }
 
-th:hover {
+th:hover,
+td:hover {
   color: #0f72ed;
   border-color: #0f72ed;
 }
@@ -267,22 +276,42 @@ td {
   width: 70px;
   padding: 0;
   border: 1px solid gray;
-  border-radius: 7px;
+  border-radius: 3px;
   font-size: clamp(12px, 1.5vw, 18px);
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.cell-check-list {
-  width: 100%;
-  height: 100%;
-  border-radius: 5px;
+.numExplanation {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 50vw;
+  max-width: 676px;
+  height: 30px;
+  border: 1px solid gray;
+  border-radius: 20px;
+  background-color: rgb(0 0 0 / 20%);
+  margin-bottom: 5px;
+}
+
+.numExp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 13vw;
+  height: 18px;
+  border: 1px solid rgb(70, 70, 70);
+  border-radius: 12px;
+  font-size: clamp(10px, 2vw, 15px);
+  background-color: rgb(0 0 0 / 20%);
+  text-align: center;
 }
 
 footer {
   position: absolute;
-  bottom: 20px;
+  bottom: 10px;
   display: flex;
   justify-content: center;
   width: 100vw;

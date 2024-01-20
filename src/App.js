@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import ButtonStore from "./store/useStore";
-import axios from "axios";
-import { createColumnHelper, useReactTable } from "@tanstack/react-table";
 import { useTable, useGlobalFilter, useSortBy } from "react-table";
 import Search from "./Component/Search";
+import useStore from "./store/useStore";
 
 function App() {
-  const { buttonValue, setButtonValue } = ButtonStore();
+  const { buttonValue, setButtonValue } = useStore();
   const [fetchedData, setFetchedData] = useState([]);
   const [clicked, setClicked] = useState(false);
   const [tableVisible, setTableVisible] = useState(false);
@@ -65,7 +64,6 @@ function App() {
       const { data } = await response.json();
 
       setFetchedData(data);
-      console.log(data);
     } catch (error) {
       console.error(error);
     }
@@ -75,9 +73,10 @@ function App() {
     setButtonValue("출결상태 재출력");
     fetchData();
     setClicked(true);
-    setTableVisible(true);
+
     setTimeout(() => {
       setClicked(false);
+      setTableVisible(true);
     }, 500);
   };
 
@@ -117,21 +116,24 @@ function App() {
           {today.toLocaleString()}
         </div>
         <Search onSubmit={setGlobalFilter} />
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                  {column.render("Header")}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
+
         <div
           className={`${tableVisible ? "tableVisible" : null} table_container`}
         >
           <table {...getTableProps()}>
+            <thead>
+              {headerGroups.map((headerGroup) => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                  {headerGroup.headers.map((column) => (
+                    <th
+                      {...column.getHeaderProps(column.getSortByToggleProps())}
+                    >
+                      {column.render("Header")}
+                    </th>
+                  ))}
+                </tr>
+              ))}
+            </thead>
             <tbody {...getTableBodyProps()}>
               {rows.map((row) => {
                 prepareRow(row);
@@ -146,7 +148,13 @@ function App() {
             </tbody>
           </table>
         </div>
+        <div className="numExplanation">
+          <div className="numExp">1 | 참석</div>
+          <div className="numExp"> 2 | 지각 </div>
+          <div className="numExp"> 5 | 결석 </div>
+        </div>
       </div>
+
       <footer>Made by Y-CPK</footer>
     </div>
   );
