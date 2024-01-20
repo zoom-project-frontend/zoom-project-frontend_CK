@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import ButtonStore from "./store/useStore";
 import axios from "axios";
 import { createColumnHelper, useReactTable } from "@tanstack/react-table";
+import { useTable, useGlobalFilter, useSortBy } from "react-table";
 
 function App() {
   // const columns = [];
@@ -13,6 +14,36 @@ function App() {
   const [fetchedData, setFetchedData] = useState([]);
   const [clicked, setClicked] = useState(false);
   const [mode, setMode] = useState(false);
+
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: "이름",
+        accessor: "name",
+      },
+      // CheckList 항목을 개별 셀로 분리
+      ...Array.from({ length: 8 }).map((_, i) => ({
+        Header: `${i + 1}교시`,
+        accessor: (d) => d.checkList[i],
+        id: `checkList-${i}`,
+        // Cell에 조건부 스타일 적용
+        Cell: ({ value }) => (
+          <div
+            className="cell-check-list"
+            style={{
+              backgroundColor: value === 1 ? "#43A200" : value === 5 ? "#5C5C5C" : "inherit",
+            }}
+          >
+            {value}
+          </div>
+        ),
+      })),
+    ],
+    []
+  );
+
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, setGlobalFilter } =
+    useTable({ columns, data: fetchedData }, useGlobalFilter, useSortBy);
 
   const apiUrl = "https://processlogic.link/example";
 
@@ -50,18 +81,6 @@ function App() {
 
   const today = new Date();
 
-  const tHeader = [
-    "이름",
-    "1교시",
-    "2교시",
-    "3교시",
-    "4교시",
-    "5교시",
-    "6교시",
-    "7교시",
-    "8교시",
-  ];
-
   return (
     <div className="app_body">
       <div className="title">
@@ -75,50 +94,38 @@ function App() {
         {mode ? "dark_mode" : "light_mode"}
       </div>
       <div className="main_body">
-        <button
-          id={clicked ? "btnAni" : null}
-          className="print_button"
-          onClick={handlePrintBtn}
-        >
+        <button id={clicked ? "btnAni" : null} className="print_button" onClick={handlePrintBtn}>
           {buttonValue}
         </button>
         <div id={clicked ? "dateAni" : null} className="date">
           {today.toLocaleString()}
         </div>
         <div className="table_container">
-          <table>
+          <table {...getTableProps()} className="table">
             <thead>
-              <tr>
-                {tHeader.map((item, index) => (
-                  <th key={index}>{item}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {fetchedData.map((item, index) => (
-                <tr>
-                  <td id={index} className="userName">
-                    {item.name}
-                  </td>
-
-                  {item.checkList.map((v) => (
-                    <td
-                      style={{
-                        backgroundColor:
-                          v === 1
-                            ? "rgb(0 222 0 / 90%)"
-                            : v === 2
-                            ? "rgb(200 200 200 / 90%)"
-                            : v === 5
-                            ? "rgb(125 125 125 / 90%)"
-                            : null,
-                      }}
-                    >
-                      {v}
-                    </td>
+              {headerGroups.map((headerGroup) => (
+                <tr {...headerGroup.getHeaderGroupProps()} className="tr">
+                  {headerGroup.headers.map((column) => (
+                    <th {...column.getHeaderProps(column.getSortByToggleProps())} className="th">
+                      {column.render("Header")}
+                    </th>
                   ))}
                 </tr>
               ))}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+              {rows.map((row) => {
+                prepareRow(row);
+                return (
+                  <tr {...row.getRowProps()} className="tr">
+                    {row.cells.map((cell) => (
+                      <td {...cell.getCellProps()} className="td">
+                        {cell.render("Cell")}
+                      </td>
+                    ))}
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
