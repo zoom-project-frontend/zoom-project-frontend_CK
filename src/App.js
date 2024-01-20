@@ -4,6 +4,7 @@ import ButtonStore from "./store/useStore";
 import axios from "axios";
 import { createColumnHelper, useReactTable } from "@tanstack/react-table";
 import { useTable, useGlobalFilter, useSortBy } from "react-table";
+import Search from "./Component/Search";
 
 function App() {
   // const columns = [];
@@ -100,6 +101,7 @@ function App() {
         <div id={clicked ? "dateAni" : null} className="date">
           {today.toLocaleString()}
         </div>
+        <Search onSubmit={setGlobalFilter} />
         <div className="table_container">
           <table {...getTableProps()} className="table">
             <thead>
