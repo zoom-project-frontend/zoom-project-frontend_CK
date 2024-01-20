@@ -1,0 +1,193 @@
+.app_body {
+  width: 100vw;
+  height: 100vh;
+}
+
+.title {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  white-space: nowrap;
+
+  z-index: 1;
+  animation: first 2s forwards;
+}
+
+@keyframes first {
+  0% {
+    height: 100vh;
+    width: 100vw;
+    background-color: #0f72ed;
+  }
+  30% {
+    height: 100vh;
+    width: 100vw;
+  }
+  60% {
+    height: 40px;
+    width: 100vw;
+    background-color: #0f72ed;
+    border-radius: 0;
+  }
+  100% {
+    height: 40px;
+    width: 160px;
+    border-radius: 20px;
+    background-color: transparent;
+  }
+}
+
+.sunMoon {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color: white;
+  font-size: 30px;
+  transition: 0.3s;
+  cursor: pointer;
+  user-select: none;
+}
+
+.sunMoon:hover {
+  transform: rotate(360deg);
+}
+
+.main_body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  padding-top: 100px;
+}
+
+.print_button {
+  width: 50vw;
+  height: 40px;
+  border: 1px solid gray;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  background-color: #0f72ed;
+  color: white;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.print_button:hover {
+  border: 1px solid #0f72ed;
+  background-color: #dee9f7;
+  color: #0f72ed !important;
+
+  font-weight: bold;
+}
+
+#btnAni {
+  animation: widthChange 0.5s ease-out;
+}
+
+@keyframes widthChange {
+  0% {
+    width: 50vw;
+  }
+  50% {
+    width: 0vw;
+    opacity: 0;
+  }
+  100% {
+    width: 50vw;
+  }
+}
+
+.date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50vw;
+  height: 30px;
+  border: 1px solid gray;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background-color: transparent;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+.date:hover {
+  color: #0f72ed;
+  border-color: #0f72ed;
+}
+
+#dateAni {
+  animation: dateAni 0.5s both ease-out;
+}
+
+@keyframes dateAni {
+  50% {
+    color: #0f72ed;
+    border-color: #0f72ed;
+  }
+}
+
+.table_container {
+  max-height: 40vh;
+  overflow: scroll !important;
+}
+
+table {
+  width: fit-content;
+  height: fit-content;
+  padding: 3px;
+  border: 1px solid white;
+  border-radius: 12px;
+  margin: 0 10px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.15);
+  transition: 0.5s;
+}
+
+th {
+  width: 70px;
+  height: 20px;
+  padding-top: 3px;
+  padding-bottom: 2px;
+  border: 1px solid white;
+  border-radius: 7px;
+  font-size: clamp(12px, 2vw, 20px);
+  background-color: rgba(0, 0, 0, 0.2);
+  transition: 0.2s;
+}
+
+th:hover {
+  color: #0f72ed;
+  border-color: #0f72ed;
+}
+
+.userName {
+  border: 1px solid white;
+}
+
+td {
+  width: 70px;
+  /* height: 30px; */
+  border: 1px solid white;
+  border-radius: 7px;
+  font-size: clamp(12px, 1.5vw, 18px);
+}
+
+footer {
+  position: absolute;
+  bottom: 20px;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  font-size: 13px;
+  color: gray;
+}

@@ -1,0 +1,42 @@
+* {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+body {
+  margin: 0;
+  color: #252525;
+  background-color: white;
+  position: relative;
+}
+
+body[data-theme="dark"] {
+  color: white;
+  background-color: #252525;
+}
+
+@media (max-width: 330px) {
+  body {
+    display: none;
+  }
+  html::before {
+    content: "화면을 넓혀주세요";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #0f72ed;
+    font-weight: bold;
+    animation: fadeIn 1.5s infinite alternate ease;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
