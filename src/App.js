@@ -7,13 +7,10 @@ import { useTable, useGlobalFilter, useSortBy } from "react-table";
 import Search from "./Component/Search";
 
 function App() {
-  // const columns = [];
-  // const columnHelper = createColumnHelper();
-  // const table = useReactTable({ columns, data });
-
   const { buttonValue, setButtonValue } = ButtonStore();
   const [fetchedData, setFetchedData] = useState([]);
   const [clicked, setClicked] = useState(false);
+  const [tableVisible, setTableVisible] = useState(false);
   const [mode, setMode] = useState(false);
 
   const columns = React.useMemo(
@@ -78,6 +75,7 @@ function App() {
     setButtonValue("출결상태 재출력");
     fetchData();
     setClicked(true);
+    setTableVisible(true);
     setTimeout(() => {
       setClicked(false);
     }, 500);
@@ -119,21 +117,21 @@ function App() {
           {today.toLocaleString()}
         </div>
         <Search onSubmit={setGlobalFilter} />
-        <div className="table_container">
-          <table {...getTableProps()}>
-            <thead>
-              {headerGroups.map((headerGroup) => (
-                <tr {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map((column) => (
-                    <th
-                      {...column.getHeaderProps(column.getSortByToggleProps())}
-                    >
-                      {column.render("Header")}
-                    </th>
-                  ))}
-                </tr>
+        <thead>
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                  {column.render("Header")}
+                </th>
               ))}
-            </thead>
+            </tr>
+          ))}
+        </thead>
+        <div
+          className={`${tableVisible ? "tableVisible" : null} table_container`}
+        >
+          <table {...getTableProps()}>
             <tbody {...getTableBodyProps()}>
               {rows.map((row) => {
                 prepareRow(row);
