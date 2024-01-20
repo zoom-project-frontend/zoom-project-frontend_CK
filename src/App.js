@@ -32,7 +32,14 @@ function App() {
           <div
             className="cell-check-list"
             style={{
-              backgroundColor: value === 1 ? "#43A200" : value === 5 ? "#5C5C5C" : "inherit",
+              backgroundColor:
+                value === 1
+                  ? "rgb(0 222 0 / 90%)"
+                  : value === 2
+                  ? "rgb(200 200 200 / 90%)"
+                  : value === 5
+                  ? "rgb(125 125 125 / 90%)"
+                  : null,
             }}
           >
             {value}
@@ -43,8 +50,14 @@ function App() {
     []
   );
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, setGlobalFilter } =
-    useTable({ columns, data: fetchedData }, useGlobalFilter, useSortBy);
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    setGlobalFilter,
+  } = useTable({ columns, data: fetchedData }, useGlobalFilter, useSortBy);
 
   const apiUrl = "https://processlogic.link/example";
 
@@ -95,7 +108,11 @@ function App() {
         {mode ? "dark_mode" : "light_mode"}
       </div>
       <div className="main_body">
-        <button id={clicked ? "btnAni" : null} className="print_button" onClick={handlePrintBtn}>
+        <button
+          id={clicked ? "btnAni" : null}
+          className="print_button"
+          onClick={handlePrintBtn}
+        >
           {buttonValue}
         </button>
         <div id={clicked ? "dateAni" : null} className="date">
@@ -103,12 +120,14 @@ function App() {
         </div>
         <Search onSubmit={setGlobalFilter} />
         <div className="table_container">
-          <table {...getTableProps()} className="table">
+          <table {...getTableProps()}>
             <thead>
               {headerGroups.map((headerGroup) => (
-                <tr {...headerGroup.getHeaderGroupProps()} className="tr">
+                <tr {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map((column) => (
-                    <th {...column.getHeaderProps(column.getSortByToggleProps())} className="th">
+                    <th
+                      {...column.getHeaderProps(column.getSortByToggleProps())}
+                    >
                       {column.render("Header")}
                     </th>
                   ))}
@@ -119,11 +138,9 @@ function App() {
               {rows.map((row) => {
                 prepareRow(row);
                 return (
-                  <tr {...row.getRowProps()} className="tr">
+                  <tr {...row.getRowProps()}>
                     {row.cells.map((cell) => (
-                      <td {...cell.getCellProps()} className="td">
-                        {cell.render("Cell")}
-                      </td>
+                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
                     ))}
                   </tr>
                 );
