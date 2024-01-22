@@ -150,7 +150,7 @@ function App() {
           </table>
         </div>
         <div className="numExplanation">
-          <div className="numExp">1 | 참석</div>
+          <div className="numExp"> 1 | 참석 </div>
           <div className="numExp"> 2 | 지각 </div>
           <div className="numExp"> 5 | 결석 </div>
         </div>
